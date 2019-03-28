@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,20 +18,21 @@ import java.util.List;
 
 public class ListaChamadosActivity extends Activity {
 
-    private ListView chamadosListView;
+    private RecyclerView chamadosRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_chamados);
-        chamadosListView = findViewById(R.id.chamadosListView);
+        chamadosRecyclerView = findViewById(R.id.chamadosRecyclerView);
         Intent origemIntent = getIntent();
         String nomeFila = origemIntent.getStringExtra("nome_fila");
         final List <Chamado> chamados = buscarChamados(nomeFila);
-        ChamadoArrayAdapter adapter =
-                new ChamadoArrayAdapter(this, chamados);
-        chamadosListView.setAdapter(adapter);
-        chamadosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        chamadosRecyclerView.setLayoutManager(new
+                LinearLayoutManager(this));
+        ChamadoRecyclerViewAdapter adapter = new ChamadoRecyclerViewAdapter(chamados);
+        chamadosRecyclerView.setAdapter(adapter);
+        /*chamadosRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long
                     id) {
@@ -40,7 +43,7 @@ public class ListaChamadosActivity extends Activity {
                 intent.putExtra("chamado_selecionado", chamadoSelecionado);
                 startActivity(intent);
             }
-        });
+        });*/
 
         /*
         super.onCreate(savedInstanceState);

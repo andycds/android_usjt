@@ -20,23 +20,40 @@ public class ChamadoArrayAdapter extends ArrayAdapter<Chamado> {
         Chamado chamadoDaVez = getItem(position);
         Fila filaDaVez = chamadoDaVez.getFila();
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view = inflater.inflate(R.layout.list_item, parent, false);
-        ImageView filaIconImageView = view.findViewById(R.id.filaIconImageView);
-        TextView descricaoChamadoNaFilaTextView =
-                view.findViewById(R.id.descricaoChamadoNaFilaTextView);
-        TextView statusChamadoNaFilaTextView =
-                view.findViewById(R.id.statusChamadoNaFilaTextView);
-        TextView dataAberturaChamadoNaFilaTextView =
-                view.findViewById(R.id.dataAberturaChamadoNaFilaTextView);
-        TextView dataFechamentoChamadoNaFilaTextView =
-                view.findViewById(R.id.dataFechamentoChamadoNaFilaTextView);
-        filaIconImageView.setImageResource(filaDaVez.getIconId());
-        descricaoChamadoNaFilaTextView.setText(chamadoDaVez.getDescricao());
-        statusChamadoNaFilaTextView.setText(chamadoDaVez.getStatus());
-        dataAberturaChamadoNaFilaTextView.setText(DateHelper.format(chamadoDaVez.getDataAbertura()));
-        if (chamadoDaVez.getDataFechamento() != null) {
-            dataFechamentoChamadoNaFilaTextView.setText(DateHelper.format(chamadoDaVez.getDataFechamento()));
+        ViewHolder vh = null;
+        if (convertView == null){
+            convertView = inflater.inflate(R.layout.list_item, parent,
+                    false);
+            vh = new ViewHolder();
+            vh.filaIconImageView =
+                    convertView.findViewById(R.id.filaIconImageView);
+            vh.descricaoChamadoNaFilaTextView =
+                    convertView.findViewById(R.id.descricaoChamadoNaFilaTextView);
+            vh.statusChamadoNaFilaTextView =
+                    convertView.findViewById(R.id.statusChamadoNaFilaTextView);
+            vh.dataAberturaChamadoNaFilaTextView =
+                    convertView.findViewById(R.id.dataAberturaChamadoNaFilaTextView);
+            vh.dataFechamentoChamadoNaFilaTextView =
+                    convertView.findViewById(R.id.dataFechamentoChamadoNaFilaTextView);
+            convertView.setTag(vh);
         }
-        return view;
+        vh = (ViewHolder) convertView.getTag();
+        vh.filaIconImageView.setImageResource(filaDaVez.getIconId());
+        vh.descricaoChamadoNaFilaTextView.setText(chamadoDaVez.getDescricao(
+        ));
+        vh.statusChamadoNaFilaTextView.setText(chamadoDaVez.getStatus());
+        vh.dataAberturaChamadoNaFilaTextView.setText(DateHelper.format(chamadoDaVez.getDataAbertura()));
+        if (chamadoDaVez.getDataFechamento() != null){
+            vh.dataFechamentoChamadoNaFilaTextView.setText(DateHelper.format(chamadoDaVez.getDataFechamento()));
+        }
+        return convertView;
+    }
+
+    private class ViewHolder {
+        public ImageView filaIconImageView;
+        public TextView statusChamadoNaFilaTextView;
+        public TextView dataAberturaChamadoNaFilaTextView;
+        public TextView dataFechamentoChamadoNaFilaTextView;
+        public TextView descricaoChamadoNaFilaTextView;
     }
 }
