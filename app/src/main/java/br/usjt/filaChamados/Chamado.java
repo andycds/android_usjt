@@ -4,13 +4,23 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Chamado implements Serializable {
+    private int id;
     private Fila fila;
     private String descricao;
     private Date dataAbertura;
     private Date dataFechamento;
     private String status;
 
-    public Chamado(Fila fila, String descricao, Date dataAbertura, Date dataFechamento, String status) {
+    /*public Chamado(Fila fila, String descricao, Date dataAbertura, Date dataFechamento, String status) {
+        this.fila = fila;
+        this.descricao = descricao;
+        this.dataAbertura = dataAbertura;
+        this.dataFechamento = dataFechamento;
+        this.status = status;
+    }*/
+
+    public Chamado(int id, Fila fila, String descricao, Date dataAbertura, Date dataFechamento, String status) {
+        this.id = id;
         this.fila = fila;
         this.descricao = descricao;
         this.dataAbertura = dataAbertura;
@@ -18,6 +28,8 @@ public class Chamado implements Serializable {
         this.status = status;
     }
 
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
     public Fila getFila() {
         return fila;
     }

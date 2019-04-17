@@ -3,14 +3,8 @@ package br.usjt.filaChamados;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +13,7 @@ import java.util.List;
 public class ListaChamadosActivity extends Activity {
 
     private RecyclerView chamadosRecyclerView;
+    private ChamadoDAO chamadoDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +22,11 @@ public class ListaChamadosActivity extends Activity {
         chamadosRecyclerView = findViewById(R.id.chamadosRecyclerView);
         Intent origemIntent = getIntent();
         String nomeFila = origemIntent.getStringExtra("nome_fila");
-        final List <Chamado> chamados = buscarChamados(nomeFila);
+
+        //final List <Chamado> chamados = buscarChamados(nomeFila);
+        chamadoDAO = new ChamadoDAO(this);
+        final List<Chamado> chamados = chamadoDAO.buscar(nomeFila);
+
         chamadosRecyclerView.setLayoutManager(new
                 LinearLayoutManager(this));
         ChamadoRecyclerViewAdapter adapter = new ChamadoRecyclerViewAdapter(chamados);
@@ -69,7 +68,7 @@ public class ListaChamadosActivity extends Activity {
         */
     }
 
-    public List<Chamado> gerarListaChamados() {
+    /*public List<Chamado> gerarListaChamados() {
         List<Chamado> chamados = new ArrayList<>();
         chamados.add(new Chamado (
                 new Fila("Desktops", R.drawable.ic_computer_black_24dp),
@@ -142,9 +141,9 @@ public class ListaChamadosActivity extends Activity {
                 "Aberto")
         );
         return chamados;
-    }
+    }*/
 
-    public List<Chamado> buscarChamados(String nomeFila){
+    /*public List<Chamado> buscarChamados(String nomeFila){
         List <Chamado> chamados = gerarListaChamados();
         if (nomeFila == null || nomeFila.length() == 0) {
             return chamados;
@@ -157,5 +156,5 @@ public class ListaChamadosActivity extends Activity {
             }
         }
         return resultado;
-    }
+    }*/
 }

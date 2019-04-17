@@ -2,12 +2,20 @@ package br.usjt.filaChamados;
 
 import java.io.Serializable;
 import java.util.List;
+
 public class Fila implements Serializable {
+    private int id;
     private String nome;
     private int iconId;
     private List<Chamado> chamados;
 
     public Fila(String nome, int iconId) {
+        this.nome = nome;
+        this.iconId = iconId;
+    }
+
+    public Fila(int id, String nome, int iconId) {
+        this.id = id;
         this.nome = nome;
         this.iconId = iconId;
     }
@@ -18,6 +26,8 @@ public class Fila implements Serializable {
     public void setChamados(List<Chamado> chamados) {
         this.chamados = chamados;
     }
+    public int getId() {return id; }
+    public void setId(int id) { this.id = id; }
     public String getNome() {
         return nome;
     }
